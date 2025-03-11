@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Authenticator</string>
+    <string name="qr_code_read">Ler QR code</string>
+    <string name="qr_code_not_read">Adicionar Manualmente</string>
+    <string name="input_hint_name">Nome</string>
+    <string name="input_hint_secret">Secret Code</string>
+    <string name="btn_save">Salvar</string>
+    <string name="authentication_code_str">Código de Autenticação</string>
+    <string name="config">Config</string>
+    <string name="config_edit">Editar</string>
+    <string name="config_delete">Excluir</string>
+    <string name="config_reset">Resetar Aplicativo</string>
+    <string name="config_backup">Fazer Backup</string>
+    <string name="config_backup_restore">Restaurar Backup</string>
+    <string name="btn_auth">Autenticar</string>
+    <string-array name="spinner_items">
+        <item>Selecione uma opção</item>
+        <item>Google Authenticator</item>
+    </string-array>
+</resources>

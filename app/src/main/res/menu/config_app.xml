@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/config_reset_app"
+        android:title="@string/config_reset" />
+    <item
+        android:id="@+id/confg_backup"
+        android:title="@string/config_backup" />
+    <item
+        android:id="@+id/config_restore"
+        android:title="@string/config_backup_restore" />
+</menu>
