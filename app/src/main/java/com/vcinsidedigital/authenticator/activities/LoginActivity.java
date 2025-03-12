@@ -23,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.vcinsidedigital.authenticator.AuthenticatorApp;
 import com.vcinsidedigital.authenticator.R;
+import com.vcinsidedigital.authenticator.util.KeyManager;
 import com.vcinsidedigital.authenticator.util.SessionManager;
 
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity
         });
 
 
+        KeyManager.generateAndSaveSecretKey(this);
 
         btnAuth = findViewById(R.id.btn_auth);
 
@@ -71,6 +73,7 @@ public class LoginActivity extends AppCompatActivity
 
         verefyBiometry();
     }
+
 
 
     private void verefyBiometry(){

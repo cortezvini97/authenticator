@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(secretEncrypted != null){
                 try {
-                    String secretB64 = CryptoUtil.decrypt(secretEncrypted);
+                    String secretB64 = CryptoUtil.decrypt(secretEncrypted, getApplicationContext());
                     byte[] secretBytes = Base64.decode(secretB64, Base64.DEFAULT);
                     ByteArrayInputStream bis = new ByteArrayInputStream(secretBytes);
                     ObjectInputStream in = new ObjectInputStream(bis);
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     // Extrair a chave secreta
                     String chave = uri.getQueryParameter("secret");
 
-                    String chaveCriptografada = CryptoUtil.encrypt(chave);
+                    String chaveCriptografada = CryptoUtil.encrypt(chave, getApplicationContext());
 
                     Secret secret = new Secret();
                     secret.setName(name);
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         byte[] decryptedSecretCodeByte = Base64.decode(CryptoUtil.decryptWithCustomKey(secretCodeCrypted, aesKey), Base64.DEFAULT);
                         String secretCode = new String(decryptedSecretCodeByte);
-                        String secretEncrypted = CryptoUtil.encrypt(secretCode);
+                        String secretEncrypted = CryptoUtil.encrypt(secretCode, getApplicationContext());
                         secret.setCode(secretEncrypted);
                         newListSecret.add(secret);
                     } catch (Exception e) {
@@ -411,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
         // Descriptografar os códigos antes de salvar
         for (Secret secret : listSecretCodes) {
             try {
-                String secretCode = CryptoUtil.decrypt(secret.getCode());
+                String secretCode = CryptoUtil.decrypt(secret.getCode(), getApplicationContext());
                 byte[] secretCodeBytes = secretCode.getBytes();
                 String secretCodeB64 = Base64.encodeToString(secretCodeBytes, Base64.DEFAULT);
                 String cryptedCode = CryptoUtil.encryptWithCustomKey(secretCodeB64, aesKey);

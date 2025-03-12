@@ -44,8 +44,8 @@ public class SecretAdapter extends RecyclerView.Adapter<SecretAdapter.MyViewHold
     public void onBindViewHolder(@NonNull SecretAdapter.MyViewHolder holder, int position) {
         Secret secret = secretList.get(position);
         String name = secret.getName();
-        String accountName = secret.getAccountName();
         Secret secretNew = secret.createIssuer();
+        String accountName = secretNew.getAccountName();
         String issuer = secretNew.getIssuer();
 
 

@@ -1,8 +1,10 @@
 package com.vcinsidedigital.authenticator.util;
 
+import android.content.Context;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
+import android.util.Log;
 
 
 import com.vcinsidedigital.authenticator.BuildConfig;
@@ -20,16 +22,17 @@ import javax.crypto.spec.SecretKeySpec;
 public class CryptoUtil {
 
     private static final String ANDROID_KEYSTORE = "AndroidKeyStore";
-    private static final String KEY_ALIAS = BuildConfig.KEY_ALIAS;
     private static final String AES_MODE = "AES/GCM/NoPadding";
     private static final int AES_KEY_SIZE = 256;
     private static final int IV_SIZE = 12; // IV do GCM geralmente tem 12 bytes
     private static final int TAG_LENGTH = 128; // Tamanho do GCM Tag (em bits)
 
     // Gera uma chave AES no Keystore, se ainda não existir
-    private static SecretKey getSecretKey() throws Exception {
+    private static SecretKey getSecretKey(Context context) throws Exception {
         KeyStore keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
         keyStore.load(null);
+
+        String KEY_ALIAS = KeyManager.getSecretKey(context);
 
         if (!keyStore.containsAlias(KEY_ALIAS)) {
             KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE);
@@ -49,8 +52,8 @@ public class CryptoUtil {
     }
 
     // Método para criptografar
-    public static String encrypt(String plainText) throws Exception {
-        SecretKey secretKey = getSecretKey();
+    public static String encrypt(String plainText, Context context) throws Exception {
+        SecretKey secretKey = getSecretKey(context);
         Cipher cipher = Cipher.getInstance(AES_MODE);
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
         byte[] iv = cipher.getIV();
@@ -65,8 +68,9 @@ public class CryptoUtil {
     }
 
     // Método para descriptografar
-    public static String decrypt(String encryptedText) throws Exception {
-        SecretKey secretKey = getSecretKey();
+    public static String decrypt(String encryptedText, Context context) throws Exception {
+        SecretKey secretKey = getSecretKey(context);
+
         byte[] combined = Base64.decode(encryptedText, Base64.DEFAULT);
 
         // Extrair IV e dados criptografados

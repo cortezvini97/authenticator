@@ -119,7 +119,7 @@ public class AddSecretCodeActivity extends AppCompatActivity {
 
                     String chaveCriptografada = null;
                     try {
-                        chaveCriptografada = CryptoUtil.encrypt(code);
+                        chaveCriptografada = CryptoUtil.encrypt(code, getApplicationContext());
 
                         Secret secret = new Secret();
                         secret.setName(name);

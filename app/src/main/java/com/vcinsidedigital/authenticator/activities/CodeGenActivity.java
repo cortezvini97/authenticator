@@ -181,7 +181,7 @@ public class CodeGenActivity extends AppCompatActivity {
 
     public String getTOTPCode(String secretKey, long step) {
         try{
-            String decrypt_key = CryptoUtil.decrypt(secretKey);
+            String decrypt_key = CryptoUtil.decrypt(secretKey, getApplicationContext());
             Base32 base32 = new Base32();
             byte[] bytes = base32.decode(decrypt_key);
             String hexKey = Hex.encodeHexString(bytes);
@@ -270,7 +270,7 @@ public class CodeGenActivity extends AppCompatActivity {
             try {
                 secretData = secret.getData();
                 String secretB64 = Base64.encodeToString(secretData, Base64.DEFAULT);
-                String secretEncrypted = CryptoUtil.encrypt(secretB64);
+                String secretEncrypted = CryptoUtil.encrypt(secretB64, getApplicationContext());
                 sessionManager.setData("secret", secretEncrypted);
             } catch (Exception e) {
                 throw new RuntimeException(e);
